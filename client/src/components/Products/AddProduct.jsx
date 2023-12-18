@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 
 function AddProductForm() {
-  // const notify = () =>
-  //   toast.success("Product Added Successfully!", {
-  //     position: toast.POSITION.TOP_LEFT,
-  //   });
-
   const [productData, setProductData] = useState({
     productName: "",
     description: "",
@@ -18,7 +11,7 @@ function AddProductForm() {
     qty: "",
     category: "",
     brand: "",
-    available:true
+    available: true,
   });
 
   const [categories, setCategories] = useState([]);
@@ -41,6 +34,19 @@ function AddProductForm() {
       });
 
       await axios.post("http://localhost:5000/dashboard/addProduct", formData);
+
+      // Reset productData to clear the input fields
+      setProductData({
+        productName: "",
+        description: "",
+        productImg: null,
+        productPrice: "",
+        qty: "",
+        category: "",
+        brand: "",
+        available: true,
+      });
+
       navigate("/products");
     } catch (error) {
       console.log(error);
@@ -65,7 +71,8 @@ function AddProductForm() {
 
   useEffect(() => {
     getCategories();
-  }, [productData]);
+  }, []);
+
 
   return (
     <div className="container">
@@ -170,6 +177,7 @@ function AddProductForm() {
             />
           </div>
           <div className="col-md-6">
+            <label htmlFor="available">choose product available</label>
             <select
               id="available"
               placeholder="choose available or not"

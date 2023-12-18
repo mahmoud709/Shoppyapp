@@ -20,7 +20,9 @@ import UserProfile from "./components/Profile/UserProfile";
 import { useEffect, useState } from "react";
 import  jwtDecode  from 'jwt-decode';
 import ShoppingCartProvider from "./context/Shoppingcart.js";
+
 function App() {
+
   const [userData, setuserData] = useState(null);
 
   function saveUserData(){
@@ -38,7 +40,7 @@ function App() {
     if(localStorage.getItem('token')!=null){
       saveUserData();
     }
-  },[])
+  }, [])
   return (
     <ShoppingCartProvider>
         <ProductsProvider>

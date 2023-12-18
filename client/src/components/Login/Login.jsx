@@ -21,7 +21,7 @@ export default function Login() {
     try {
       const { data } = await axios.post("http://localhost:5000/signin", loginData);
 
-      if (data.message === "success") {
+      if (data.success) {
         localStorage.setItem("token", data.token);
         navigate("/");
         toast.success("Login successful");
@@ -65,21 +65,6 @@ export default function Login() {
                     className="form-control form-control-lg"
                     onChange={takeData}
                   />
-
-                </div>
-                <div className="form-check d-flex justify-content-start mb-4">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="form1Example3"
-                  />
-                  <label
-                    className="form-check-label ms-1"
-                    htmlFor="form1Example3"
-                  >
-                    Remember password
-                  </label>
                 </div>
                 <button
                   className="btn btn-primary btn-block fw-bold"

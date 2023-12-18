@@ -6,9 +6,9 @@ export default function ShowProducts({ item }) {
   const { getItemsQuantity ,increaseCartQuantity } = useShoppingCart();
   const quantity=getItemsQuantity(item._id);
   return (
-    <>
-      <div className="card rounded-3 position-relative p-2">
-        <div className="card-body">
+    <div className="col-md-3 my-2">
+      <div className="card rounded-3 p-2 h-100">
+        <div className="card-body p-0 h-75">
           <div className="content">
             <div className="Productimage">
               <img
@@ -31,6 +31,6 @@ export default function ShowProducts({ item }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

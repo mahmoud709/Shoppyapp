@@ -44,6 +44,11 @@ const signup = new Schema({
     enum: ['user', 'admin', 'owner'],
     default: 'user'
   },
+  orders:[
+    {
+      type: Schema.Types.ObjectId,
+    }
+  ]
 },{timestamps:true});
 
 export const newuser =model("user", signup);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Nav({ userData, logout }) {
@@ -31,44 +31,13 @@ export default function Nav({ userData, logout }) {
                 About us
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link active" to="/dashboard">
-                Dashboard
-              </Link>
-            </li>
-            <li className="nav-item dropdown">
-              <Link
-                className="nav-link active dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-              >
-                Catogories
-              </Link>
-              <ul className="dropdown-menu">
-                <li className="text-end">
-                  <Link className="dropdown-item " to="/">
-                    Mens
-                  </Link>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="text-end">
-                  <Link className="dropdown-item" to="#">
-                    Womens
-                  </Link>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="text-end">
-                  <Link className="dropdown-item" to="#">
-                    Childs
-                  </Link>
-                </li>
-              </ul>
-            </li>
+            {userData && userData !== 'null' && userData.role === 'admin' ? (
+              <li className="nav-item">
+                <Link className="nav-link active" to="/dashboard">
+                  Dashboard
+                </Link>
+              </li>
+            ) : ''}
             <li>
               <Link className="nav-link active" to="/contact">
                 Contact
@@ -76,10 +45,6 @@ export default function Nav({ userData, logout }) {
             </li>
           </ul>
           <div className="Nav-btns d-flex">
-            <Link to="cart" className="btn btn-primary fw-bold mx-1">
-              <span className="fas fa-shopping-bag me-lg-2"></span>
-              Cart
-            </Link>
             {!userData ? (
               <Link to="signin">
                 <button className="btn btn-primary fw-bold mx-1">
@@ -95,6 +60,10 @@ export default function Nav({ userData, logout }) {
                     Profile
                   </button>
                 </Link>
+                  <Link to="cart" className="btn btn-primary fw-bold mx-1">
+                    <span className="fas fa-shopping-bag me-lg-2"></span>
+                    Cart
+                  </Link>
                 <button
                   className="btn btn-primary fw-bold mx-1" onClick={logout}>
                   <i className="me-lg-2"></i>

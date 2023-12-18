@@ -7,6 +7,8 @@ import path from 'path';
 import { cloudinaryUploadImage } from '../utils/clouninary.js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 import fs from 'fs';
+import { categoryModel } from '../models/category.js';
+import { statusCodes, successMsg } from './../utils/Status.js';
 
 export const addProduct = asyncHandler(async (req, res) => {
   // Check if a file is uploaded
@@ -108,3 +110,31 @@ export const deleteOne = asyncHandler(async (req, res) => {
     });
   }
 });
+// Search product API endpoint
+export const searchProductAPI = asyncHandler(async (req, res) => {
+  const { searchKeyword } = req.query;
+
+  if (!searchKeyword) {
+    return res.status(400).json({ success: false, message: 'Search keyword is required' });
+  }
+
+  const products = await productDetails(searchKeyword);
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Search results',
+    results: products,
+  });
+});
+
+// get alll catagories 
+export const getCatagories=asyncHandler(async(req,res)=>{
+  const categories = await categoryModel.find({});
+  // Sending response
+  res.status(statusCodes.successCode).json({
+    success:successMsg.success,
+    message:'all catagories',
+    categories,
+  })
+
+})

@@ -1,6 +1,8 @@
 import { newuser } from "../models/signup.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { statusCodes, successMsg } from "../utils/Status.js";
+import  asyncHandler  from 'express-async-handler';
 export const signup = async (req, res) => {
   const { firstName, lastName, email, phone, password, confirmPassword } = req.body;
   const salt = bcrypt.genSaltSync(10);
@@ -22,24 +24,25 @@ export const signup = async (req, res) => {
   })
 }
 
-export const login = async (req, res) => {
-  const { email, password } = req.body;
-  const existuser = await newuser.findOne({ email });
-  let comparePassword;
-  if (existuser) {
-    comparePassword = bcrypt.compareSync(password, existuser.password);
+export const Login = asyncHandler(async (req, res) => {
+  const { email, phone, password } = req.body;
+  // Finding user in DB
+  const userInfo = await newuser.findOne({ $or: [{ email }, { phone }] });
+  // handle user is not found
+  if (!userInfo) {
+    return res.status(statusCodes.successCode).json({ success: successMsg.failed, message: "Invalid credentials" });
   }
-  if (!existuser || !comparePassword) {
-    return res.status(400).json({
-      message: "Email or password is invalid",
-    });
+  // Compare passwords
+  const validPass = await bcrypt.compare(password, userInfo.password);
+  if (!validPass) {
+    return res.status(statusCodes.successCode).json({ success: successMsg.failed, message: "Invalid credentials" });
   }
-  let token = jwt.sign({ id: existuser._id, email: existuser.email }, process.env.JWT_SECRET);
-
-  res.header("token", token)
-  res.status(200)
-    .json({
-      message: "success",
-      token,
-    });
-}
+  const tokenData = {
+    id: userInfo._id,
+    role: userInfo.role
+  }
+  const token = jwt.sign({ ...tokenData }, process.env.JWT_SECRET, {
+    expiresIn: '60d',
+  });
+  res.status(statusCodes.successCode).json({ success: successMsg.success, message: "Login Success", token })
+})

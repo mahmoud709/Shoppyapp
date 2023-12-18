@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { addProduct, index, show, deleteOne } from "../controller/product.js";
+import { addProduct, index, show, deleteOne, searchProductAPI, getCatagories } from "../controller/product.js";
 import { complaints, getcomplaints } from "../controller/complaints.js";
 import { addCategory, getCategories } from "../controller/category.js";
-import { login, signup } from "../controller/Auth.js";
-import { getusers } from "../controller/users.js";
+import { Login, signup } from "../controller/Auth.js";
+import { getusers, profile } from "../controller/users.js";
 import multer from "multer";
-import { verifyTokenAndAdmin } from "../Midleware/verifyToken.js";
+import { verifyToken, verifyTokenAndAdmin } from "../Midleware/verifyToken.js";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -35,5 +35,10 @@ route.get("/dashboard/users",verifyTokenAndAdmin ,getusers);
 route.delete("/dashboard/products/:_id", deleteOne);
 //  Auth Operation
 route.post("/signup", signup);
-route.post("/signin", login);
+route.post("/signin", Login);
+
+// get user profile
+route.get('/profile', verifyToken, profile);
+route.get('/search', searchProductAPI);
+route.get('/getCatagories', getCatagories)
 export default route;
