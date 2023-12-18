@@ -21,6 +21,7 @@ export const addProduct = asyncHandler(async (req, res) => {
     qty,
     category,
     brand,
+    available
   } = req.body;
 
   // Upload photo
@@ -44,6 +45,7 @@ export const addProduct = asyncHandler(async (req, res) => {
         publicId: result.public_id
       },
       brand,
+      available
     });
 
     // Delete the local image file after upload

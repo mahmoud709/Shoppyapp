@@ -34,6 +34,9 @@ const Products = new Schema(
       type: String,
       required: false,
     },
+    available:{
+      type:Boolean,
+    }
   },
   { timestamps: true }
 );

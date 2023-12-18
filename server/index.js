@@ -5,7 +5,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import { errorHandler, notFound } from './Midleware/handleError.js';
 dotenv.config({ path: "./config.env" });
+
 const connect=async()=>{
     try{
         mongoose.connect(process.env.DBCOLLECTION);
@@ -27,13 +29,9 @@ app.use('/',route)
 app.all('*',(req,res)=>{
     res.send('Not found in server')
 })
-// Global Error handler
-app.use((err,req,res,next)=>{
-    res.status(500).json({
-        status: 500,
-        message: err.message,
-    });
-})
+// Error Handler Midleware
+app.use(notFound);
+app.use(errorHandler);
 app.listen(process.env.PORT,(req,res)=>{
     connect();
     console.log(`App is running at http:/localhost:${process.env.PORT}`)

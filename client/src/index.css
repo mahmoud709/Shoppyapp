@@ -17,6 +17,11 @@ body {
   max-width: 100%;
     overflow-x: hidden;
   }
+
+ img {
+  width: 100%;
+  object-fit: cover;
+ } 
   .accordion-button:focus,
   .form-control:focus,
   .navbar-toggler:focus {

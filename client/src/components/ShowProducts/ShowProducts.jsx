@@ -12,7 +12,7 @@ export default function ShowProducts({ item }) {
           <div className="content">
             <div className="Productimage">
               <img
-                src={item.productImg}
+                src={item.productImg.url}
                 alt={item.productName}
               />
             </div>

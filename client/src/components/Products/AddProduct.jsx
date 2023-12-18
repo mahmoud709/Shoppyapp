@@ -18,6 +18,7 @@ function AddProductForm() {
     qty: "",
     category: "",
     brand: "",
+    available:true
   });
 
   const [categories, setCategories] = useState([]);
@@ -167,6 +168,19 @@ function AddProductForm() {
               onChange={takeData}
               name="brand"
             />
+          </div>
+          <div className="col-md-6">
+            <select
+              id="available"
+              placeholder="choose available or not"
+              className="form-control my-3"
+              onChange={takeData}
+              name="available"
+            >
+                <option>choose product available or not</option>
+                <option>true</option>
+                <option>false</option>
+            </select>
           </div>
         </div>
         <div>

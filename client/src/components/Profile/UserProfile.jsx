@@ -6,7 +6,6 @@ export default function UserProfile() {
       <h1 className="h3 fw-bold my-4">My Profile</h1>
       <div className="border p-3 my-5">
         <h2>Personal Information</h2>
-
           <div className="row">
             <div className="col-md-6">
               <h3>

@@ -4,8 +4,8 @@ import { complaints, getcomplaints } from "../controller/complaints.js";
 import { addCategory, getCategories } from "../controller/category.js";
 import { login, signup } from "../controller/Auth.js";
 import { getusers } from "../controller/users.js";
-import { protectRoutes } from "../Midleware/ProtectRoutes.js";
 import multer from "multer";
+import { verifyTokenAndAdmin } from "../Midleware/verifyToken.js";
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -27,10 +27,10 @@ route.post("/contact", complaints);
 
 route.get('/products', index);
 route.get("/products/:_id", show);
-route.get("/dashboard/products", index);
+route.get("/dashboard/products",verifyTokenAndAdmin ,index);
 route.get("/dashboard/categories", getCategories);
 route.get("/dashboard/complaints", getcomplaints);
-route.get("/dashboard/users", protectRoutes, getusers);
+route.get("/dashboard/users",verifyTokenAndAdmin ,getusers);
 
 route.delete("/dashboard/products/:_id", deleteOne);
 //  Auth Operation

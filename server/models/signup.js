@@ -39,10 +39,10 @@ const signup = new Schema({
     type: String,
     required: [true, "you must confirm your password"],
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
-    select:false,
+  role: {
+    type: String,
+    enum: ['user', 'admin', 'owner'],
+    default: 'user'
   },
 },{timestamps:true});
 
