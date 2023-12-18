@@ -38,6 +38,7 @@ export const addProduct = asyncHandler(async (req, res) => {
       description,
       productPrice,
       qty,
+      category,
       productImg: {
         url: result.secure_url,
         publicId: result.public_id
