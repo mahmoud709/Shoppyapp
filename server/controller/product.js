@@ -9,6 +9,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 import fs from 'fs';
 
 export const addProduct = asyncHandler(async (req, res) => {
+  // Check if a file is uploaded
+  if (!req.file) {
+    return res.status(400).json({ success: 'failed', message: 'Please, upload an image' });
+  }
+
   const {
     productName,
     description,
@@ -19,37 +24,38 @@ export const addProduct = asyncHandler(async (req, res) => {
   } = req.body;
 
   // Upload photo
-  const imagePath = path.join(__dirname, `../uplaods/${req.file.filename}`);
+  const imagePath = path.join(__dirname, `../uploads/${req.file.filename}`);
   const result = await cloudinaryUploadImage(imagePath);
-  // Check if the uploaded image exceeds 8MB 
-  if (!req.file || req.file.size > 8 * 1024 * 1024) {
-    return res.status(400).json({ success: 'failed', message: 'Please, upload an image smaller than 8MB' });
-  }
-  console.log('result');
+
   if (result) {
-    
-    // await productDetails.create({
-    //   productName,
-    //   description,
-    //   productPrice,
-    //   qty,
-    //   productImg: {
-    //     url: result.secure_url,
-    //     publicId: result.public_id
-    //   },
-    //   brand,
-    // });
-    // Remove image from the 'images' folder if the image was successfully uploaded
-  //   fs.unlinkSync(imagePath);
-  //   return res.status(200).json({
-  //     status: 'success',
-  //     message: 'product added successfully',
-  //   });
-  // }
-  // else {
-  //   return res.status(400).json({ status: 'failed', message: 'Failed to upload the image to Cloudinary' });
-   }
-})
+    // Check if the uploaded image exceeds 8MB 
+    if (req.file.size > 8 * 1024 * 1024) {
+      return res.status(400).json({ success: 'failed', message: 'Please, upload an image smaller than 8MB' });
+    }
+
+    await productDetails.create({
+      productName,
+      description,
+      productPrice,
+      qty,
+      productImg: {
+        url: result.secure_url,
+        publicId: result.public_id
+      },
+      brand,
+    });
+
+    // Delete the local image file after upload
+    fs.unlinkSync(imagePath);
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Product added successfully',
+    });
+  } else {
+    return res.status(400).json({ status: 'failed', message: 'Failed to upload the image to Cloudinary' });
+  }
+});
 
 export const index = async (req, res) => {
   const myQuery = req.query;
@@ -78,7 +84,7 @@ export const show = asyncHandler(
       message: "single product",
       singleProduct,
     })
-    if(!singleProduct){
+    if (!singleProduct) {
       const err = appError.create(401, "Product Not found", "failed");
       return next(err);
     }
