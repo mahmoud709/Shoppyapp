@@ -1,0 +1,14 @@
+.carousel {
+    position: relative;
+}
+
+.carousel-inner::before {
+    content: "";
+    background: var(--layer);
+    position: absolute;
+    top: 0;
+    min-height: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1
+}

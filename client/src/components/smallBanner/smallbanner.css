@@ -1,0 +1,39 @@
+.sm-banner {
+    background: var(--layer), url(../Images/banner5.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 517px;
+}
+
+.sm-banner h2 {
+    margin-top: 5rem;
+}
+
+.video-play-icon {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    animation: ribble 1s linear infinite;
+}
+
+@keyframes ribble {
+    0% {
+        box-shadow: 0 0 0 0 rgb(255 255 255 / 30%), 0 0 0 10px rgb(255 255 255 / 30%), 0 0 0 20px rgb(255 255 255 / 30%);
+        -webkit-animation: ribble 1s linear infinite;
+    }
+
+    100% {
+        box-shadow: 0 0 0 10px rgb(255 255 255 / 30%), 0 0 0 20px rgb(255 255 255 / 30%), 0 0 0 40px rgb(255 255 255 / 20%);
+    }
+}
+
+.video-play-icon .fa-play {
+    top: 15px;
+    left: 20px;
+}

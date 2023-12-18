@@ -1,0 +1,8 @@
+.card-title:hover {
+    cursor: pointer;
+    color: rgb(13, 93, 241);
+}
+
+.card {
+    box-shadow: 0 0 .2rem rgba(0, 0, 0, .1);
+}
