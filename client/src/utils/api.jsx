@@ -1,2 +1,3 @@
-export const API_URL ='https://shoppy-app.onrender.com/'
-// http://localhost:5000
+const env ='http://localhost:5000';
+const dev= 'https://shoppy-app.onrender.com';
+export const API_URL =dev;
