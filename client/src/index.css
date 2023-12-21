@@ -15,21 +15,26 @@
 html,
 body {
   max-width: 100%;
-    overflow-x: hidden;
-  }
+  overflow-x: hidden;
+}
 
- img {
+nav+section {
+  margin-top: 70px;
+}
+
+img {
   width: 100%;
   object-fit: cover;
- } 
-  .accordion-button:focus,
-  .form-control:focus,
-  .navbar-toggler:focus {
-    box-shadow: none;
-  }
-  
-  .accordion-button:not(.collapsed) {
-    background-color: white;
+}
+
+.accordion-button:focus,
+.form-control:focus,
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: white;
 }
 
 .centerHV {

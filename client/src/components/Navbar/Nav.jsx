@@ -1,9 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useShoppingCart } from "../../context/Shoppingcart";
 export default function Nav({ userData, logout }) {
+
+  const { cartItems } = useShoppingCart();
+  const [cartItemsNum, setcartItemsNum] = useState([])
+  useEffect(() => {
+    setcartItemsNum(cartItems);
+  }, [cartItems])
+
+
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary py-3">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary py-3 fixed-top">
       <div className="container">
         <Link className="navbar-brand text-capitalize fw-bold" to="/">
           <span className="text-primary">SHOPPY</span>KART
@@ -45,33 +53,35 @@ export default function Nav({ userData, logout }) {
             </li>
           </ul>
           <div className="Nav-btns d-flex">
+            <Link to="/cart" className="btn btn-primary fw-bold mx-1 px-4 position-relative"> {/* Fix: use "/cart" instead of "cart" */}
+              <i className="fas fa-shopping-bag"></i>
+              <span className="badge rounded-pill badge-notification bg-danger position-absolute top-0">{cartItemsNum.length}</span>
+            </Link>
             {!userData ? (
-              <Link to="signin">
-                <button className="btn btn-primary fw-bold mx-1">
-                  <i className="fas fa-user me-lg-2"></i>
-                  Login
-                </button>
-              </Link>
+    <Link to="/signin"> {/* Fix: use "/signin" instead of "signin" */}
+      <button className="btn btn-primary fw-bold mx-1">
+        <i className="fas fa-user me-lg-2"></i>
+        Login
+      </button>
+    </Link>
+
             ) : (
               <>
-                <Link to="profile">
+                <Link to="/profile"> {/* Fix: use "/profile" instead of "profile" */}
                   <button className="btn btn-primary fw-bold mx-1">
-                    <i className="fas fa-user me-lg-2"></i>
-                    Profile
+                    <i className="fas fa-user "></i>
                   </button>
                 </Link>
-                  <Link to="cart" className="btn btn-primary fw-bold mx-1">
-                    <span className="fas fa-shopping-bag me-lg-2"></span>
-                    Cart
-                  </Link>
                 <button
-                  className="btn btn-primary fw-bold mx-1" onClick={logout}>
-                  <i className="me-lg-2"></i>
+                  className="btn btn-primary fw-bold mx-1"
+                  onClick={logout}
+                >
                   Logout
                 </button>
               </>
             )}
           </div>
+
         </div>
       </div>
     </nav>

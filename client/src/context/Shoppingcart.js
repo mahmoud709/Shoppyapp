@@ -1,10 +1,13 @@
-import React, { createContext, useContext, useState } from 'react';
-import Cart from '../components/Shoppingcart/Cart';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const ShoppingCartContext = createContext({});
 
 export default function ShoppingCartProvider({ children }) {
     const [cartItems, setCartItems] = useState([]);
+
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }, [cartItems]);
 
     const getItemsQuantity = (id) => {
         return cartItems.find((item) => item.id === id)?.quantity || 0;

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Login() {
+export default function Login({ saveUserData }) {
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",
@@ -23,6 +23,7 @@ export default function Login() {
 
       if (data.success) {
         localStorage.setItem("token", data.token);
+        saveUserData();
         navigate("/");
         toast.success("Login successful");
       }

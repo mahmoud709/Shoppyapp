@@ -32,7 +32,7 @@ export default function ProductsDetails() {
             <h3>Product Description : {productDetails.description}</h3>
             <h4>Price : {productDetails.productPrice} EGP</h4>
             <h3 className="h4">brand : {productDetails.brand}</h3>
-            <h5>available : {productDetails.available ? <span className="text-success">not available</span> : <span className="text-danger">not available</span>}</h5>
+            <h5>available : {productDetails.available ? <span className="text-success">available</span> : <span className="text-danger">not available</span>}</h5>
           </div>
         </div>
     </div>

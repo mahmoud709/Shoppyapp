@@ -14,37 +14,37 @@ import Contact from "./components/Contact/Contact";
 import Complaints from "./components/dashboard/Complaints";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Aboutus from "./components/Aboutus/Aboutus";
-import Footer from "./components/Footer/Footer";
 import AddCategory from "./components/Categories/AddCategory";
 import UserProfile from "./components/Profile/UserProfile";
 import { useEffect, useState } from "react";
-import  jwtDecode  from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import ShoppingCartProvider from "./context/Shoppingcart.js";
+import Footer from './components/Footer/Footer';
 
 function App() {
 
   const [userData, setuserData] = useState(null);
 
-  function saveUserData(){
-    const token=localStorage.getItem('token');
+  function saveUserData() {
+    const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwtDecode(token);
       setuserData(decodedToken);
     }
-    }
-  function logout(){
+  }
+  function logout() {
     localStorage.removeItem("token");
     setuserData(null);
   }
-  useEffect(()=>{
-    if(localStorage.getItem('token')!=null){
+  useEffect(() => {
+    if (localStorage.getItem('token') != null) {
       saveUserData();
     }
   }, [])
   return (
     <ShoppingCartProvider>
-        <ProductsProvider>
-        <Nav userData={userData} logout={logout} />
+      <ProductsProvider>
+        <Nav userData={userData} logout={logout} saveUserData={saveUserData}/>
         <Routes>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="products" element={<ProductTable />} />
@@ -57,7 +57,7 @@ function App() {
           <Route path="/products/:_id" element={<ProductsDetails />} />
           <Route path="/table" element={<ProductTable />} />
           <Route path="/" element={<Home />} />
-          <Route path="/signin" element={<Login />} />
+          <Route path="/signin" element={<Login saveUserData={saveUserData}/>} />
           <Route path="/signup" element={<Register />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
@@ -66,8 +66,9 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
-        </ProductsProvider>
+      </ProductsProvider>
     </ShoppingCartProvider>
+
   );
 }
 

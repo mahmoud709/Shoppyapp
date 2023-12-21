@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useShoppingCart } from "../../context/Shoppingcart";
 import axios from "axios";
+import { API_URL } from './../../utils/api';
 
 export default function Cart() {
-  const { cartItems, getItemsQuantity, increaseCartQuantity, removeItemFromCart } = useShoppingCart();
+  const { cartItems, increaseCartQuantity, decreaseCartQuantity, removeItemFromCart } = useShoppingCart();
   const [productDetails, setProductDetails] = useState([]);
-  console.log(cartItems);
+
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
         const promises = cartItems.map(async (cartItem) => {
-          const response = await axios.get(`http://localhost:5000/products/${cartItem.id}`);
+          const response = await axios.get(`${API_URL}/products/${cartItem.id}`);
           return { ...response.data, quantity: cartItem.quantity };
         });
         const details = await Promise.all(promises);
@@ -24,24 +25,24 @@ export default function Cart() {
   }, [cartItems]);
 
   return (
-    <section className="h-100 h-custom container">
+    <section className="vh-100 h-custom container">
       <div className="h-100 py-5 row">
         <div className="h-100 col-md-9">
           <div className="col">
             <div className="table-responsive">
-              <table className="table">
-                <thead>
+              {cartItems.length > 0 ? <table className="table table-bordered">
+                <thead className="thead-dark">
                   <tr>
-                    <th scope="col" className="align-middle">
+                    <th scope="col" className="text-center">
                       Product Name
                     </th>
-                    <th scope="col" className="align-middle">
+                    <th scope="col" className="text-center">
                       Quantity
                     </th>
-                    <th scope="col" className="align-middle">
+                    <th scope="col" className="text-center">
                       Price
                     </th>
-                    <th scope="col" className="align-middle">
+                    <th scope="col" className="text-center">
                       Actions
                     </th>
                   </tr>
@@ -49,38 +50,34 @@ export default function Cart() {
                 <tbody>
                   {productDetails.map((product) => (
                     <tr key={product.singleProduct._id}>
-                      <th scope="row">
-                        <div className="d-flex align-items-center">
-                          <div className="flex-column ms-4">
-                            <p className="mb-2">{product.singleProduct.productName}</p>
-                          </div>
-                        </div>
-                      </th>
                       <td className="align-middle">
-                        <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <input
-                            min="1"
-                            name="quantity"
-                            type="number"
-                            value={product.quantity}
-                            className="form-control form-control-sm"
-                          />
+                        <div className="d-flex justify-content-center align-items-center">
+                          <div className="flex-column">
+                            <p className="mb-0">{product.singleProduct.productName}</p>
+                          </div>
                         </div>
                       </td>
                       <td className="align-middle">
-                        <p className="mb-0 fw-bold">{product.singleProduct.productPrice} EGP</p>
+                        <div className="d-flex justify-content-center align-items-center">
+                          <button className="btn btn-primary" onClick={() => increaseCartQuantity(product.singleProduct._id)}>+</button>
+                          <b className="mx-2">{product.quantity}</b>
+                          <button className="btn btn-primary" onClick={() => decreaseCartQuantity(product.singleProduct._id)}>-</button>
+                        </div>
+                      </td>
+                      <td className="align-middle">
+                        <p className="mb-0 fw-bold">{(product.singleProduct.productPrice * product.quantity).toFixed(2)} EGP</p>
                       </td>
                       <td className="align-middle">
                         <i
                           className="fa-solid fa-trash text-danger"
-                          style={{ cursor: "pointer" }}
-                          onClick={() => removeItemFromCart(cartItems.id)}
+                          style={{ cursor: "pointer", fontSize: "20px" }}
+                          onClick={() => removeItemFromCart(product.singleProduct._id)}
                         ></i>
                       </td>
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </table> : <h3>You shopping cart is empty</h3>}
             </div>
           </div>
         </div>
