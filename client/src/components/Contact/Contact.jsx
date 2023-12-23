@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Banner from "../BannerComponent/Banner";
 import TextCom from "../textComponent/TextCom";
+import { API_URL } from "../../utils/api";
 export default function Contact() {
   const [isLoading, setisLoading] = useState(false);
   const [complaints, setcomplaints] = useState({
@@ -17,7 +18,7 @@ export default function Contact() {
     setcomplaints(Data);
   }
   async function postData() {
-    await axios.post("http://localhost:5000/contact", complaints);
+    await axios.post(`${API_URL}/contact`, complaints);
   }
   function handleSubmit(event) {
     event.preventDefault();
