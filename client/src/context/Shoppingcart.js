@@ -5,10 +5,6 @@ const ShoppingCartContext = createContext({});
 export default function ShoppingCartProvider({ children }) {
     const [cartItems, setCartItems] = useState([]);
 
-    useEffect(() => {
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    }, [cartItems]);
-
     const getItemsQuantity = (id) => {
         return cartItems.find((item) => item.id === id)?.quantity || 0;
     };

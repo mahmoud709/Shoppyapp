@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import jwtDecode from 'jwt-decode';
 import ShoppingCartProvider from "./context/Shoppingcart.js";
 import Footer from './components/Footer/Footer';
+import PaymentForm from "./components/pay/Payment.jsx";
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<Aboutus />} />
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/cart/payment" element={<PaymentForm />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />

@@ -41,7 +41,7 @@ const signup = new Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'admin', 'owner'],
+    enum: ['user', 'admin'],
     default: 'user'
   },
   orders:[

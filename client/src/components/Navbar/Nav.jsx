@@ -11,7 +11,7 @@ export default function Nav({ userData, logout }) {
 
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary py-3 fixed-top">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary py-3">
       <div className="container">
         <Link className="navbar-brand text-capitalize fw-bold" to="/">
           <span className="text-primary">SHOPPY</span>KART

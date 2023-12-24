@@ -18,7 +18,10 @@ export default function Contact() {
     setcomplaints(Data);
   }
   async function postData() {
-    await axios.post(`${API_URL}/contact`, complaints);
+    const data =await axios.post(`${API_URL}/contact`, complaints);
+    if (data.status === 201){
+      setisLoading(false)
+    }
   }
   function handleSubmit(event) {
     event.preventDefault();

@@ -37,22 +37,22 @@ export default function Footer() {
               <h6 className="text-uppercase fw-bold mb-4">Products</h6>
               <p>
                 <Link to="#!" className="text-reset">
-                  Angular
+                  Clothes
                 </Link>
               </p>
               <p>
                 <Link to="#!" className="text-reset">
-                  React
+                  oppo
                 </Link>
               </p>
               <p>
                 <Link to="#!" className="text-reset">
-                  Vue
+                  samsung
                 </Link>
               </p>
               <p>
                 <Link to="#!" className="text-reset">
-                  Laravel
+                  xiome
                 </Link>
               </p>
             </div>

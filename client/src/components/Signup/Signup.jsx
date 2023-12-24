@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
+import { API_URL } from "../../utils/api";
 
 export default function Register() {
 const navigate=useNavigate();
@@ -18,12 +19,19 @@ const [registerData, setregisterData] = useState({
     setregisterData(signupData);
   }
 async  function postData(){
-  await axios.post("http://localhost:5000/signup",registerData);
-    navigate('/signin')
+  try{
+    let data  = await axios.post(`${API_URL}/signup`, registerData);
+    console.log('data is rs'+data);
+    // navigate('/signin')
+
+  }
+  catch(err){
+    console.log('err' + err);
+  }
   }
   function handleSubmit(e){
     e.preventDefault();
-    postData()
+    postData();
   }
   return (
     <section className="vh-100">

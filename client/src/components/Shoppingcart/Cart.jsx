@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useShoppingCart } from "../../context/Shoppingcart";
 import axios from "axios";
 import { API_URL } from './../../utils/api';
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const { cartItems, increaseCartQuantity, decreaseCartQuantity, removeItemFromCart } = useShoppingCart();
@@ -75,12 +76,18 @@ export default function Cart() {
                         ></i>
                       </td>
                     </tr>
+                    
                   ))}
+
                 </tbody>
               </table> : <h3>You shopping cart is empty</h3>}
             </div>
+            <div className="checkout">
+              <Link className="btn btn-primary" to='payment'>check out</Link>
+            </div>
           </div>
         </div>
+        
       </div>
     </section>
   );
