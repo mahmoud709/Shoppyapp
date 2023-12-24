@@ -11,7 +11,6 @@ import Login from "./components/Login/Login.jsx";
 import Register from "./components/Signup/Signup";
 import Cart from "./components/Shoppingcart/Cart";
 import Contact from "./components/Contact/Contact";
-import Complaints from "./components/dashboard/Complaints";
 import Aboutus from "./components/Aboutus/Aboutus";
 import AddCategory from "./components/Categories/AddCategory";
 import UserProfile from "./components/Profile/UserProfile";
@@ -50,7 +49,6 @@ function App() {
             <Route path="products" element={<ProductTable />} />
             <Route path="addProduct" element={<AddProductForm />} />
             <Route path="/dashboard/addcategory" element={<AddCategory />} />
-            <Route path="complaints" element={<Complaints />} />
           </Route>
           <Route path="/dashboard/addProduct" element={<AddProductForm />} />
           <Route path="/products" element={<Products />} />
