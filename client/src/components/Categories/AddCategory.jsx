@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from './../../utils/api';
 
 export default function AddCategory() {
   const [categoryData, setcategoryData] = useState({
@@ -15,7 +16,7 @@ export default function AddCategory() {
   }
   async function postData() {
     await axios.post(
-      "http://localhost:5000/dashboard/addcategory",
+      `${API_URL}/addcategory`,
       categoryData
     );
   }

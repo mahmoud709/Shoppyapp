@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { API_URL } from "../../utils/api";
 
 export default function UserProfile() {
   const [userData, setUserData] = useState({});
   const userToken=localStorage.getItem('token');
   async function fetchProfileData(token) {
     try {
-      const { data } = await axios.get("http://localhost:5000/profile", {
+      const { data } = await axios.get(`${API_URL}/profile`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
@@ -21,8 +22,6 @@ export default function UserProfile() {
   }
   useEffect(()=>{
     fetchProfileData();
-    console.log(userData);
-
   }, [])
   return (
     <div className="container vh-100">

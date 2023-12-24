@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ProductsContext } from "../../context/getProducts";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { API_URL } from "../../utils/api";
 
 function confirmDelete(_id, deleteProduct) {
   Swal.fire({
@@ -25,7 +26,7 @@ export default function ProductTable() {
 
   async function handleDelete(_id) {
     try {
-      await axios.delete(`http://localhost:5000/dashboard/products/${_id}`);
+      await axios.delete(`${API_URL}/dashboard/products/${_id}`);
       deleteProduct(_id);
     } catch (error) {
       console.log(error);

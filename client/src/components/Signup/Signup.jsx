@@ -20,9 +20,8 @@ const [registerData, setregisterData] = useState({
   }
 async  function postData(){
   try{
-    let data  = await axios.post(`${API_URL}/signup`, registerData);
-    console.log('data is rs'+data);
-    // navigate('/signin')
+    await axios.post(`${API_URL}/signup`, registerData);
+    navigate('/signin')
 
   }
   catch(err){

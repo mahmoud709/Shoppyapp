@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from './../../utils/api';
 
 export default function ProductsDetails() {
   let { _id } = useParams();
   const [productDetails, setproductDetails] = useState({});
   async function getSingleProduct(_id) {
-    let { data } = await axios.get(`http://localhost:5000/products/${_id}`);
+    let { data } = await axios.get(`${API_URL}/products/${_id}`);
     setproductDetails(data.singleProduct);
   }
   useEffect(() => {

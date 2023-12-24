@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { API_URL } from './../../utils/api';
 
 export default function Complaints() {
   const [complaints, setComplaints] = useState([]);
 
   async function getComplaints() {
     try {
-      const { data } = await axios.get("http://localhost:5000/dashboard/complaints");
+      const { data } = await axios.get(`${API_URL}/complaints`);
       setComplaints(data.allComplaints);
     } catch (error) {
       console.log(error);

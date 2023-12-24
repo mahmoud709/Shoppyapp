@@ -64,7 +64,6 @@ export default function Nav({ userData, logout }) {
         Login
       </button>
     </Link>
-
             ) : (
               <>
                 <Link to="/profile"> {/* Fix: use "/profile" instead of "profile" */}
@@ -81,7 +80,6 @@ export default function Nav({ userData, logout }) {
               </>
             )}
           </div>
-
         </div>
       </div>
     </nav>
