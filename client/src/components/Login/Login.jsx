@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_URL } from "../../utils/api";
 
 export default function Login({ saveUserData }) {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function Login({ saveUserData }) {
 
   async function postData() {
     try {
-      const { data } = await axios.post("http://localhost:5000/signin", loginData);
+      const { data } = await axios.post(`${API_URL}/signin`, loginData);
 
       if (data.success) {
         localStorage.setItem("token", data.token);

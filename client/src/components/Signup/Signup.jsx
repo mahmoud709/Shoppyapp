@@ -5,6 +5,7 @@ import { API_URL } from "../../utils/api";
 
 export default function Register() {
 const navigate=useNavigate();
+
 const [registerData, setregisterData] = useState({
   firstName: "",
   lastName: "",
@@ -18,7 +19,7 @@ const [registerData, setregisterData] = useState({
     signupData[event.target.name] = event.target.value;
     setregisterData(signupData);
   }
-async  function postData(){
+async function postData(){
   try{
     await axios.post(`${API_URL}/signup`, registerData);
     navigate('/signin')

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../utils/api";
 
 function AddProductForm() {
   const [productData, setProductData] = useState({
@@ -33,7 +34,7 @@ function AddProductForm() {
         formData.append(key, value);
       });
 
-      await axios.post("http://localhost:5000/dashboard/addProduct", formData);
+      await axios.post(`${API_URL}/dashboard/addProduct`, formData);
 
       // Reset productData to clear the input fields
       setProductData({
@@ -55,9 +56,7 @@ function AddProductForm() {
 
   async function getCategories() {
     try {
-      const { data } = await axios.get(
-        "http://localhost:5000/dashboard/categories"
-      );
+      const { data } = await axios.get(`${API_URL}/dashboard/categories`);
       setCategories(data.allCategories);
     } catch (error) {
       console.log(error);

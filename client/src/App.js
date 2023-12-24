@@ -12,7 +12,6 @@ import Register from "./components/Signup/Signup";
 import Cart from "./components/Shoppingcart/Cart";
 import Contact from "./components/Contact/Contact";
 import Complaints from "./components/dashboard/Complaints";
-import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Aboutus from "./components/Aboutus/Aboutus";
 import AddCategory from "./components/Categories/AddCategory";
 import UserProfile from "./components/Profile/UserProfile";
@@ -65,7 +64,6 @@ function App() {
           <Route path="/about" element={<Aboutus />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/cart/payment" element={<PaymentForm />} />
-          <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
       </ProductsProvider>
